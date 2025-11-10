@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Alra Care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="./images/image_logo.webp" alt="Alra Care Logo" 
+                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjM2FhZmYzIi8+Cjx0ZXh0IHg9IjIwIiB5PSIyMiIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QUw8L3RleHQ+Cjwvc3ZnPgo='">
+                <span>Alra Care Admin</span>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="menu-item" data-page="bookings">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Manajemen Booking</span>
+                </div>
+                <div class="menu-item" data-page="services">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Manajemen Layanan</span>
+                </div>
+                <div class="menu-item" data-page="gallery">
+                    <i class="fas fa-images"></i>
+                    <span>Manajemen Galeri</span>
+                </div>
+                <div class="menu-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Pengaturan</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <h1>Dashboard Admin</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <div class="user-avatar">A</div>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard Page -->
+                <div id="dashboard" class="page active">
+                    <div class="dashboard-cards">
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">Total Booking</div>
+                                    <div class="card-value" id="totalBookings">0</div>
+                                </div>
+                                <div class="card-icon primary">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span id="bookingChange">+0%</span> dari bulan lalu
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">Booking Hari Ini</div>
+                                    <div class="card-value" id="todayBookings">0</div>
+                                </div>
+                                <div class="card-icon success">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span id="todayChange">+0%</span> dari kemarin
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">Pendapatan Bulan Ini</div>
+                                    <div class="card-value" id="monthlyRevenue">Rp 0</div>
+                                </div>
+                                <div class="card-icon warning">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span id="revenueChange">+0%</span> dari bulan lalu
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">Layanan Tersedia</div>
+                                    <div class="card-value" id="availableServices">0</div>
+                                </div>
+                                <div class="card-icon danger">
+                                    <i class="fas fa-concierge-bell"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span id="servicesChange">+0</span> dari bulan lalu
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Statistik Booking 30 Hari Terakhir</h3>
+                        <div class="chart-placeholder">
+                            Grafik akan ditampilkan di sini (membutuhkan library chart seperti Chart.js)
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <div class="table-title">Booking Terbaru</div>
+                            <div class="table-actions">
+                                <button class="btn btn-primary" onclick="showAllBookings()">
+                                    <i class="fas fa-list"></i> Lihat Semua
+                                </button>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Booking</th>
+                                    <th>Nama Pasien</th>
+                                    <th>Layanan</th>
+                                    <th>Tanggal</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentBookingsTable">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Bookings Page -->
+                <div id="bookings" class="page">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <div class="table-title">Semua Booking</div>
+                            <div class="table-actions">
+                                <button class="btn btn-primary" onclick="exportBookings()">
+                                    <i class="fas fa-download"></i> Ekspor
+                                </button>
+                                <button class="btn btn-success" onclick="showAddBookingModal()">
+                                    <i class="fas fa-plus"></i> Tambah Booking
+                                </button>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Booking</th>
+                                    <th>Nama Pasien</th>
+                                    <th>Telepon</th>
+                                    <th>Layanan</th>
+                                    <th>Tanggal & Jam</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allBookingsTable">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Services Page -->
+                <div id="services" class="page">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <div class="table-title">Kategori Layanan</div>
+                            <div class="table-actions">
+                                <button class="btn btn-success" onclick="showAddServiceModal()">
+                                    <i class="fas fa-plus"></i> Tambah Kategori
+                                </button>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Kategori</th>
+                                    <th>Jumlah Layanan</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="serviceCategoriesTable">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-container" style="margin-top: 2rem;">
+                        <div class="table-header">
+                            <div class="table-title">Semua Layanan</div>
+                            <div class="table-actions">
+                                <button class="btn btn-success" onclick="showAddServiceOptionModal()">
+                                    <i class="fas fa-plus"></i> Tambah Layanan
+                                </button>
+                            </div>
+                        </div>
+                        <div class="service-options-grid" id="serviceOptionsGrid">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Page -->
+                <div id="gallery" class="page">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <div class="table-title">Galeri Klinik</div>
+                            <div class="table-actions">
+                                <button class="btn btn-success" onclick="showAddGalleryModal()">
+                                    <i class="fas fa-plus"></i> Tambah Gambar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="gallery-grid" id="galleryGrid" style="padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div id="settings" class="page">
+                    <div class="form-container">
+                        <h3>Pengaturan Umum</h3>
+                        <form id="generalSettingsForm">
+                            <div class="form-group">
+                                <label for="clinicName">Nama Klinik</label>
+                                <input type="text" id="clinicName" class="form-control" value="Alra Care">
+                            </div>
+                            <div class="form-group">
+                                <label for="clinicAddress">Alamat Klinik</label>
+                                <textarea id="clinicAddress" class="form-control" rows="3">Jl. Akcaya, Akcaya, Kec. Pontianak Sel., Kota Pontianak, Kalimantan Barat</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="clinicPhone">Telepon</label>
+                                <input type="text" id="clinicPhone" class="form-control" value="6281381223811">
+                            </div>
+                            <div class="form-group">
+                                <label for="clinicEmail">Email</label>
+                                <input type="email" id="clinicEmail" class="form-control" value="rahmadramadhanaswin@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="businessHours">Jam Operasional</label>
+                                <input type="text" id="businessHours" class="form-control" value="Senin - Minggu: 08:00 - 17:00">
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary">Reset</button>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="form-container">
+                        <h3>Pengaturan Media Sosial</h3>
+                        <form id="socialSettingsForm">
+                            <div class="form-group">
+                                <label for="instagramAccounts">Akun Instagram (pisahkan dengan koma)</label>
+                                <input type="text" id="instagramAccounts" class="form-control" value="alra_spesialis_luka, alra_aesthetic">
+                            </div>
+                            <div class="form-group">
+                                <label for="facebookAccounts">Akun Facebook (pisahkan dengan koma)</label>
+                                <input type="text" id="facebookAccounts" class="form-control" value="AlraCare, Alra Aesthetic">
+                            </div>
+                            <div class="form-group">
+                                <label for="youtubeAccounts">Akun YouTube (pisahkan dengan koma)</label>
+                                <input type="text" id="youtubeAccounts" class="form-control" value="Alra care, Alra Aesthetic, Alra Khitan">
+                            </div>
+                            <div class="form-group">
+                                <label for="tiktokAccounts">Akun TikTok (pisahkan dengan koma)</label>
+                                <input type="text" id="tiktokAccounts" class="form-control" value="Alra_care, Alra Aesthetic">
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary">Reset</button>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Booking Detail Modal -->
+    <div id="bookingDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('bookingDetailModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Detail Booking</h2>
+            </div>
+            <div id="bookingDetailContent">
+                <!-- Content will be filled by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Booking Modal -->
+    <div id="addBookingModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('addBookingModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Tambah Booking Baru</h2>
+            </div>
+            <form id="addBookingForm">
+                <div class="form-group">
+                    <label for="newPatientName">Nama Pasien</label>
+                    <input type="text" id="newPatientName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPatientPhone">Telepon</label>
+                    <input type="text" id="newPatientPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPatientAddress">Alamat</label>
+                    <textarea id="newPatientAddress" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="newService">Layanan</label>
+                    <select id="newService" class="form-control" required>
+                        <option value="">Pilih Layanan</option>
+                        <!-- Options will be filled by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newAppointmentDate">Tanggal</label>
+                        <input type="date" id="newAppointmentDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newAppointmentTime">Jam</label>
+                        <select id="newAppointmentTime" class="form-control" required>
+                            <option value="">Pilih Jam</option>
+                            <!-- Options will be filled by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="newPatientNotes">Catatan</label>
+                    <textarea id="newPatientNotes" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addBookingModal')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Service Modal -->
+    <div id="addServiceModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('addServiceModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Tambah Kategori Layanan</h2>
+            </div>
+            <form id="addServiceForm">
+                <div class="form-group">
+                    <label for="newServiceId">ID Kategori</label>
+                    <input type="text" id="newServiceId" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newServiceTitle">Nama Kategori</label>
+                    <input type="text" id="newServiceTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newServiceDescription">Deskripsi</label>
+                    <textarea id="newServiceDescription" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addServiceModal')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Kategori</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Service Option Modal -->
+    <div id="addServiceOptionModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('addServiceOptionModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Tambah Layanan</h2>
+            </div>
+            <form id="addServiceOptionForm">
+                <div class="form-group">
+                    <label for="newOptionService">Kategori Layanan</label>
+                    <select id="newOptionService" class="form-control" required>
+                        <option value="">Pilih Kategori</option>
+                        <!-- Options will be filled by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newOptionId">ID Layanan</label>
+                    <input type="text" id="newOptionId" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newOptionName">Nama Layanan</label>
+                    <input type="text" id="newOptionName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newOptionPrice">Harga</label>
+                    <input type="text" id="newOptionPrice" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newOptionImage">URL Gambar</label>
+                    <input type="text" id="newOptionImage" class="form-control" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addServiceOptionModal')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Layanan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Gallery Modal -->
+    <div id="addGalleryModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('addGalleryModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Tambah Gambar ke Galeri</h2>
+            </div>
+            <form id="addGalleryForm">
+                <div class="form-group">
+                    <label for="newImageTitle">Judul Gambar</label>
+                    <input type="text" id="newImageTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newImageUrl">URL Gambar</label>
+                    <input type="text" id="newImageUrl" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newImageDescription">Deskripsi</label>
+                    <textarea id="newImageDescription" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addGalleryModal')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Gambar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+        <button class="notification-close" onclick="this.parentElement.classList.remove('show')">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
