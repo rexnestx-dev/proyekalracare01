@@ -383,6 +383,18 @@ const serviceDetails = {
                 name: "4. Sunat Tekno Sealer Extra Mainan",
                 price: "Rp 2.800.000",
                 image: "./images/S_TEKNOSEALER(EXTRAMAINAN).webp",
+            },
+            {
+                id: "S_TEKNOSEALER",
+                name: "5. Sunat Circle Clamp",
+                price: "Rp 1.200.000",
+                image: "./images/S_CIRCLECLAMP.webp",
+            },
+            {
+                id: "S_TEKNOSEALER(EXTRAMAINAN)",
+                name: "6. Sunat Circle Clamp Extra Mainan",
+                price: "Rp 1.500.000",
+                image: "./images/S_CIRCLECLAMP(EXTRAMAINAN).webp",
             }
         ]
     },
