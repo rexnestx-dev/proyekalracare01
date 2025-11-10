@@ -382,7 +382,7 @@ const serviceDetails = {
                 id: "S_TEKNOSEALER(EXTRAMAINAN)",
                 name: "4. Sunat Tekno Sealer Extra Mainan",
                 price: "Rp 2.800.000",
-                image: "./images/S_TEKNOSEALER(EXTRAMAINAN).webp",
+                image: "./images/S_TECHNOSEALER(EXTRAMAINAN).webp",
             },
             {
                 id: "S_TEKNOSEALER",
