@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Alra Care</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin-style.css">
+    <style>
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .loading { opacity: 0.7; pointer-events: none; }
+    </style>
 </head>
 <body>
     <div class="admin-container">
@@ -121,7 +126,9 @@
                     <div class="chart-container">
                         <h3>Statistik Booking 30 Hari Terakhir</h3>
                         <div class="chart-placeholder">
-                            Grafik akan ditampilkan di sini (membutuhkan library chart seperti Chart.js)
+                            <i class="fas fa-chart-bar" style="font-size: 3rem; color: #bdc3c7; margin-bottom: 1rem;"></i>
+                            <p>Grafik akan ditampilkan di sini</p>
+                            <small>Membutuhkan library chart seperti Chart.js</small>
                         </div>
                     </div>
 
@@ -238,7 +245,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="gallery-grid" id="galleryGrid" style="padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                        <div class="gallery-grid" id="galleryGrid">
                             <!-- Data akan diisi oleh JavaScript -->
                         </div>
                     </div>
@@ -251,26 +258,26 @@
                         <form id="generalSettingsForm">
                             <div class="form-group">
                                 <label for="clinicName">Nama Klinik</label>
-                                <input type="text" id="clinicName" class="form-control" value="Alra Care">
+                                <input type="text" id="clinicName" class="form-control" value="Alra Care" required>
                             </div>
                             <div class="form-group">
                                 <label for="clinicAddress">Alamat Klinik</label>
-                                <textarea id="clinicAddress" class="form-control" rows="3">Jl. Akcaya, Akcaya, Kec. Pontianak Sel., Kota Pontianak, Kalimantan Barat</textarea>
+                                <textarea id="clinicAddress" class="form-control" rows="3" required>Jl. Akcaya, Akcaya, Kec. Pontianak Sel., Kota Pontianak, Kalimantan Barat</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="clinicPhone">Telepon</label>
-                                <input type="text" id="clinicPhone" class="form-control" value="6281381223811">
+                                <input type="text" id="clinicPhone" class="form-control" value="6281381223811" required>
                             </div>
                             <div class="form-group">
                                 <label for="clinicEmail">Email</label>
-                                <input type="email" id="clinicEmail" class="form-control" value="rahmadramadhanaswin@gmail.com">
+                                <input type="email" id="clinicEmail" class="form-control" value="rahmadramadhanaswin@gmail.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="businessHours">Jam Operasional</label>
-                                <input type="text" id="businessHours" class="form-control" value="Senin - Minggu: 08:00 - 17:00">
+                                <input type="text" id="businessHours" class="form-control" value="Senin - Minggu: 08:00 - 17:00" required>
                             </div>
                             <div class="form-actions">
-                                <button type="button" class="btn btn-secondary">Reset</button>
+                                <button type="button" class="btn btn-secondary" onclick="loadSettingsIntoForms()">Reset</button>
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                             </div>
                         </form>
@@ -296,7 +303,7 @@
                                 <input type="text" id="tiktokAccounts" class="form-control" value="Alra_care, Alra Aesthetic">
                             </div>
                             <div class="form-actions">
-                                <button type="button" class="btn btn-secondary">Reset</button>
+                                <button type="button" class="btn btn-secondary" onclick="loadSettingsIntoForms()">Reset</button>
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                             </div>
                         </form>
@@ -310,11 +317,11 @@
     <!-- Booking Detail Modal -->
     <div id="bookingDetailModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('bookingDetailModal')">&times;</span>
+            <button class="modal-close" onclick="closeModal('bookingDetailModal')" aria-label="Tutup">&times;</button>
             <div class="modal-header">
                 <h2>Detail Booking</h2>
             </div>
-            <div id="bookingDetailContent">
+            <div id="bookingDetailContent" style="padding: 0 1.5rem;">
                 <!-- Content will be filled by JavaScript -->
             </div>
         </div>
@@ -323,25 +330,25 @@
     <!-- Add Booking Modal -->
     <div id="addBookingModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('addBookingModal')">&times;</span>
+            <button class="modal-close" onclick="closeModal('addBookingModal')" aria-label="Tutup">&times;</button>
             <div class="modal-header">
                 <h2>Tambah Booking Baru</h2>
             </div>
-            <form id="addBookingForm">
+            <form id="addBookingForm" style="padding: 0 1.5rem 1.5rem;">
                 <div class="form-group">
-                    <label for="newPatientName">Nama Pasien</label>
+                    <label for="newPatientName">Nama Pasien *</label>
                     <input type="text" id="newPatientName" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="newPatientPhone">Telepon</label>
+                    <label for="newPatientPhone">Telepon *</label>
                     <input type="text" id="newPatientPhone" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="newPatientAddress">Alamat</label>
+                    <label for="newPatientAddress">Alamat *</label>
                     <textarea id="newPatientAddress" class="form-control" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="newService">Layanan</label>
+                    <label for="newService">Layanan *</label>
                     <select id="newService" class="form-control" required>
                         <option value="">Pilih Layanan</option>
                         <!-- Options will be filled by JavaScript -->
@@ -349,11 +356,11 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="newAppointmentDate">Tanggal</label>
+                        <label for="newAppointmentDate">Tanggal *</label>
                         <input type="date" id="newAppointmentDate" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="newAppointmentTime">Jam</label>
+                        <label for="newAppointmentTime">Jam *</label>
                         <select id="newAppointmentTime" class="form-control" required>
                             <option value="">Pilih Jam</option>
                             <!-- Options will be filled by JavaScript -->
@@ -375,21 +382,22 @@
     <!-- Add Service Modal -->
     <div id="addServiceModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('addServiceModal')">&times;</span>
+            <button class="modal-close" onclick="closeModal('addServiceModal')" aria-label="Tutup">&times;</button>
             <div class="modal-header">
                 <h2>Tambah Kategori Layanan</h2>
             </div>
-            <form id="addServiceForm">
+            <form id="addServiceForm" style="padding: 0 1.5rem 1.5rem;">
                 <div class="form-group">
-                    <label for="newServiceId">ID Kategori</label>
+                    <label for="newServiceId">ID Kategori *</label>
                     <input type="text" id="newServiceId" class="form-control" required>
+                    <small style="color: #666; font-size: 0.8rem;">ID harus unik dan tidak boleh mengandung spasi</small>
                 </div>
                 <div class="form-group">
-                    <label for="newServiceTitle">Nama Kategori</label>
+                    <label for="newServiceTitle">Nama Kategori *</label>
                     <input type="text" id="newServiceTitle" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="newServiceDescription">Deskripsi</label>
+                    <label for="newServiceDescription">Deskripsi *</label>
                     <textarea id="newServiceDescription" class="form-control" rows="3" required></textarea>
                 </div>
                 <div class="form-actions">
@@ -403,33 +411,34 @@
     <!-- Add Service Option Modal -->
     <div id="addServiceOptionModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('addServiceOptionModal')">&times;</span>
+            <button class="modal-close" onclick="closeModal('addServiceOptionModal')" aria-label="Tutup">&times;</button>
             <div class="modal-header">
                 <h2>Tambah Layanan</h2>
             </div>
-            <form id="addServiceOptionForm">
+            <form id="addServiceOptionForm" style="padding: 0 1.5rem 1.5rem;">
                 <div class="form-group">
-                    <label for="newOptionService">Kategori Layanan</label>
+                    <label for="newOptionService">Kategori Layanan *</label>
                     <select id="newOptionService" class="form-control" required>
                         <option value="">Pilih Kategori</option>
                         <!-- Options will be filled by JavaScript -->
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="newOptionId">ID Layanan</label>
+                    <label for="newOptionId">ID Layanan *</label>
                     <input type="text" id="newOptionId" class="form-control" required>
+                    <small style="color: #666; font-size: 0.8rem;">ID harus unik dalam kategori yang dipilih</small>
                 </div>
                 <div class="form-group">
-                    <label for="newOptionName">Nama Layanan</label>
+                    <label for="newOptionName">Nama Layanan *</label>
                     <input type="text" id="newOptionName" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="newOptionPrice">Harga</label>
-                    <input type="text" id="newOptionPrice" class="form-control" required>
+                    <label for="newOptionPrice">Harga *</label>
+                    <input type="text" id="newOptionPrice" class="form-control" placeholder="Contoh: Rp 150.000" required>
                 </div>
                 <div class="form-group">
-                    <label for="newOptionImage">URL Gambar</label>
-                    <input type="text" id="newOptionImage" class="form-control" required>
+                    <label for="newOptionImage">URL Gambar *</label>
+                    <input type="text" id="newOptionImage" class="form-control" placeholder="https://example.com/image.jpg" required>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('addServiceOptionModal')">Batal</button>
@@ -442,18 +451,18 @@
     <!-- Add Gallery Modal -->
     <div id="addGalleryModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('addGalleryModal')">&times;</span>
+            <button class="modal-close" onclick="closeModal('addGalleryModal')" aria-label="Tutup">&times;</button>
             <div class="modal-header">
                 <h2>Tambah Gambar ke Galeri</h2>
             </div>
-            <form id="addGalleryForm">
+            <form id="addGalleryForm" style="padding: 0 1.5rem 1.5rem;">
                 <div class="form-group">
-                    <label for="newImageTitle">Judul Gambar</label>
+                    <label for="newImageTitle">Judul Gambar *</label>
                     <input type="text" id="newImageTitle" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="newImageUrl">URL Gambar</label>
-                    <input type="text" id="newImageUrl" class="form-control" required>
+                    <label for="newImageUrl">URL Gambar *</label>
+                    <input type="text" id="newImageUrl" class="form-control" placeholder="https://example.com/image.jpg" required>
                 </div>
                 <div class="form-group">
                     <label for="newImageDescription">Deskripsi</label>
@@ -470,11 +479,11 @@
     <!-- Notification -->
     <div id="notification" class="notification">
         <span id="notificationText"></span>
-        <button class="notification-close" onclick="this.parentElement.classList.remove('show')">
+        <button class="notification-close" onclick="this.parentElement.classList.remove('show')" aria-label="Tutup notifikasi">
             <i class="fas fa-times"></i>
         </button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="admin-script.js"></script>
 </body>
 </html>
